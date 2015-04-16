@@ -14,6 +14,7 @@ enum class Endianness {
 };
 
 using Byte = unsigned char;
+using Buffer = std::deque<Byte>;
 
 class ByteStream {
 
@@ -39,12 +40,11 @@ protected: // Helpers
 
 	/**
 	 * Writes specified bytes and ammount to the streamBuffer (top of it)
+	 *
+	 * @param bytes array of bytes to write
+	 * @oaram length of bytes given
 	 */
 	void write(Byte *bytes, unsigned int length);
-
-protected:
-	using Buffer = std::deque<Byte>;
-
 };
 
 
