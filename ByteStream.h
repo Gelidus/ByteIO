@@ -35,13 +35,13 @@ public: // API
 	void read(int &value);
 
 	template <typename T>
-	const ByteStream& operator << (const T &value) {
+	ByteStream& operator << (T &value) {
 		this->write(value);
 		return *this;
 	}
 
 	template <typename T>
-	const ByteStream& operator >> (T &value) {
+	ByteStream& operator >> (T &value) {
 		this->read(value);
 		return *this;
 	}
