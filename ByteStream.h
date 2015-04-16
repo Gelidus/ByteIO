@@ -30,7 +30,21 @@ public:
 	~ByteStream();
 
 public: // API
+	void write(const int &value);
 
+	void read(int &value);
+
+	template <typename T>
+	const ByteStream& operator << (const T &value) {
+		this->write(value);
+		return *this;
+	}
+
+	template <typename T>
+	const ByteStream& operator >> (T &value) {
+		this->read(value);
+		return *this;
+	}
 
 protected: // Helpers
 	/**
@@ -46,7 +60,7 @@ protected: // Helpers
 	 * @param bytes array of bytes to write
 	 * @oaram length of bytes given
 	 */
-	void write(Byte *bytes, unsigned int length);
+	void write(const Byte *bytes, unsigned int length);
 };
 
 
