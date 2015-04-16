@@ -82,13 +82,13 @@ public: // API
 		return *this;
 	}
 
-public: // Helpers
+public: // Basic methods
 	/**
 	 * Reads specified ammount of bytes from the streamBuffer
 	 *
 	 * @param length specifies number of bytes to return
 	 */
-	std::shared_ptr<Byte> read(unsigned int length);
+	std::shared_ptr<Byte> readBytes(unsigned int length);
 
 	/**
 	 * Writes specified bytes and ammount to the streamBuffer (top of it)
@@ -96,7 +96,7 @@ public: // Helpers
 	 * @param bytes array of bytes to write
 	 * @oaram length of bytes given
 	 */
-	void write(const Byte *bytes, unsigned int length);
+	void writeBytes(const Byte *bytes, unsigned int length);
 };
 
 
