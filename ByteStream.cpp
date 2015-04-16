@@ -12,8 +12,19 @@ ByteStream::ByteStream(Byte *input, unsigned int length) {
 	this->write(input, length);
 }
 
-ByteStream::~ByteStream() {
+ByteStream::~ByteStream() { }
 
+
+void ByteStream::write(const int &value) {
+	const Byte *bytes = static_cast<const Byte*>(static_cast<const void*>(&value));
+
+	this->write(bytes, 4);
+}
+
+void ByteStream::read(int &value) {
+	shared_ptr<Byte> bytes = this->read(4);
+
+	value = bytes.get()[0] | bytes.get()[1] << 8 | bytes.get()[2] << 16 | bytes.get()[3] << 24;
 }
 
 shared_ptr<Byte> ByteStream::read(unsigned int length) {
@@ -27,7 +38,7 @@ shared_ptr<Byte> ByteStream::read(unsigned int length) {
 	return shared_ptr<Byte>(bytes);
 }
 
-void ByteStream::write(Byte *bytes, unsigned int length) {
+void ByteStream::write(const Byte *bytes, unsigned int length) {
 	for (int i = 0; i < length; i++) {
 		this->streamBuffer.push_back(bytes[i]);
 	}
