@@ -31,14 +31,25 @@ public:
 
 public: // API
 
+	void write(const char &value);
+	void write(const unsigned char &value);
+
 	/**
 	 * Writes specified int value into the stream
 	 *
 	 * @param value to be written
 	 */
 	void write(const int &value);
+	void write(const unsigned int &value);
 	void write(const short &value);
+	void write(const unsigned short &value);
 	void write(const std::string &value);
+	void write(const long long &value);
+	void write(const unsigned long long &value);
+
+
+	void read(char &value);
+	void read(unsigned char &value);
 
 	/**
 	 * Reads int value from stream
@@ -46,8 +57,12 @@ public: // API
 	 * @param value to save into
 	 */
 	void read(int &value);
+	void read(unsigned int &value);
 	void read(short &value);
+	void read(unsigned short &value);
 	void read(std::string &value);
+	void read(long long &value);
+	void read(unsigned long long &value);
 
 	/**
 	 * Defines overloaded stream operator << for writing
