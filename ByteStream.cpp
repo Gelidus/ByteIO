@@ -21,11 +21,17 @@ void ByteStream::write(const int &value) {
 	this->write(bytes, 4);
 }
 
-
 void ByteStream::write(const short &value) {
 	const Byte *bytes = static_cast<const Byte*>(static_cast<const void*>(&value));
 
 	this->write(bytes, 2);
+}
+
+
+void ByteStream::write(const std::string &value) {
+	const Byte *bytes = (const Byte*)value.c_str();
+
+	this->write(bytes, static_cast<unsigned int>(value.length()) + 1);
 }
 
 void ByteStream::read(int &value) {
@@ -34,11 +40,27 @@ void ByteStream::read(int &value) {
 	value = bytes.get()[0] | bytes.get()[1] << 8 | bytes.get()[2] << 16 | bytes.get()[3] << 24;
 }
 
-
 void ByteStream::read(short &value) {
 	shared_ptr<Byte> bytes = this->read(2);
 
 	value = bytes.get()[0] | bytes.get()[1] << 8;
+}
+
+void ByteStream::read(std::string &value) {
+	Byte current;
+	value = ""; // reset string value
+
+	do {
+		current = this->streamBuffer.front();
+		this->streamBuffer.pop_front();
+
+		if (current == '\0') {
+			break;
+		}
+
+		value += current;
+
+	} while (this->streamBuffer.size() > 0);
 }
 
 shared_ptr<Byte> ByteStream::read(unsigned int length) {
