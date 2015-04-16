@@ -30,27 +30,44 @@ public:
 	~ByteStream();
 
 public: // API
+
+	/**
+	 * Writes specified int value into the stream
+	 *
+	 * @param value to be written
+	 */
 	void write(const int &value);
 	void write(const short &value);
 	void write(const std::string &value);
 
+	/**
+	 * Reads int value from stream
+	 *
+	 * @param value to save into
+	 */
 	void read(int &value);
 	void read(short &value);
 	void read(std::string &value);
 
+	/**
+	 * Defines overloaded stream operator << for writing
+	 */
 	template <typename T>
 	ByteStream& operator << (T &value) {
 		this->write(value);
 		return *this;
 	}
 
+	/**
+	 * Defines overloaded stream operator >> for reading
+	 */
 	template <typename T>
 	ByteStream& operator >> (T &value) {
 		this->read(value);
 		return *this;
 	}
 
-protected: // Helpers
+public: // Helpers
 	/**
 	 * Reads specified ammount of bytes from the streamBuffer
 	 *
