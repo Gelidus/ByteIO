@@ -9,6 +9,8 @@
 #include <string>
 #include <deque>
 
+#include <memory>
+
 enum class Endianness {
 	BigEndian, LittleEndian
 };
@@ -19,12 +21,12 @@ using Buffer = std::deque<Byte>;
 class ByteStream {
 
 protected:
-	Endianness endianness;
+	Endianness endianness = Endianness::LittleEndian;
 	Buffer streamBuffer;
 
 public:
 	ByteStream();
-	ByteStream(Byte *input);
+	ByteStream(Byte *input, unsigned int length);
 	~ByteStream();
 
 public: // API
@@ -36,7 +38,7 @@ protected: // Helpers
 	 *
 	 * @param length specifies number of bytes to return
 	 */
-	Byte *read(unsigned int length);
+	std::shared_ptr<Byte> read(unsigned int length);
 
 	/**
 	 * Writes specified bytes and ammount to the streamBuffer (top of it)
