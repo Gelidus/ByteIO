@@ -31,8 +31,10 @@ public:
 
 public: // API
 	void write(const int &value);
+	void write(const short &value);
 
 	void read(int &value);
+	void read(short &value);
 
 	template <typename T>
 	ByteStream& operator << (T &value) {

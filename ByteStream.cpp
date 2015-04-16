@@ -21,10 +21,24 @@ void ByteStream::write(const int &value) {
 	this->write(bytes, 4);
 }
 
+
+void ByteStream::write(const short &value) {
+	const Byte *bytes = static_cast<const Byte*>(static_cast<const void*>(&value));
+
+	this->write(bytes, 2);
+}
+
 void ByteStream::read(int &value) {
 	shared_ptr<Byte> bytes = this->read(4);
 
 	value = bytes.get()[0] | bytes.get()[1] << 8 | bytes.get()[2] << 16 | bytes.get()[3] << 24;
+}
+
+
+void ByteStream::read(short &value) {
+	shared_ptr<Byte> bytes = this->read(2);
+
+	value = bytes.get()[0] | bytes.get()[1] << 8;
 }
 
 shared_ptr<Byte> ByteStream::read(unsigned int length) {
